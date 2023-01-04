@@ -1,14 +1,20 @@
 // create game board module
 const gameBoard = (() => {
-    const board = [];
-    
-    const setMark = (mark) => {
-        board.push(mark);
-    }
+  const marks = ["X", "X", "O", "X", "O", "O", "X", "O", "X"];
 
-    const getBoard = () => {
-        console.log(board);
-    }
+  const setMark = (mark) => {
+    marks.push(mark);
+  };
 
-    return {setMark, getBoard}
+  const drawBoard = () => {
+    const board = document.querySelector(".game-board");
+    marks.forEach((mark) => {
+      const newMark = document.createElement("div");
+      newMark.textContent = mark;
+      newMark.classList.add("mark");
+      board.appendChild(newMark);
+    });
+  };
+
+  return { setMark, drawBoard };
 })();
