@@ -14,6 +14,12 @@ body {
     background-color: #2c2c2c;
 }
 
+main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 header {
     display: flex;
     flex-direction: column;
@@ -25,17 +31,46 @@ header h1 {
     margin: 10px 10px;
 }
 
+.game-mode {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+.game-mode h1 {
+    font-size: 1.5rem;
+    color: #ffffff
+}
+
+.game-mode-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.game-mode-buttons button {
+    width: 7rem;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.3rem 0;
+}
+
+.game-mode-buttons button:hover {
+    box-shadow: 0px 0px 15px  0 #009ec5;
+}
+
+
 .game-board {
     display: grid;
-    place-items: center;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 0.5rem;
+    justify-content: center;
+    grid-template-columns: repeat(3, 5.3rem);
+    grid-template-rows: repeat(3, 5.3rem);
     font-size: 2rem;
     margin: 2rem 0;
 }
 
-.board-mark {
+.board-field {
     display: flex;
     align-items: center;
     justify-content: center;
