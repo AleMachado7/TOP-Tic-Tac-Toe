@@ -20,19 +20,32 @@ const gameBoard = (() => {
     });
   };
 
-  const setMarker = (playerMark) => {
-    if (boardArray[fieldIndex] !== undefined) {
-      console.log("This field is already taken");
+  const setMarker = (playerMarker, fieldIndex) => {
+    if (boardArray[fieldIndex] === undefined) {
+      boardArray[fieldIndex] = playerMarker;
+      displayMarkers();
     }
   };
 
-  return { setMarker, displayMarkers };
+  return { setMarker };
 })();
 
-const player = (playerName, playerMarker) => {
-  const setMarker = () => {
-    const fields = document.querySelectorAll(".board-field");
+const gameFlow = (() => {
+  let currentPlayer = "X";
+  const playerTurn = document.querySelector("#game-info");
+  playerTurn.textContent = `It's player ${currentPlayer} turn.`;
+
+  const changePlayer = () => {
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    playerTurn.textContent = `It's player ${currentPlayer} turn.`;
   };
 
-  return { playerName, setMarker };
-};
+  const fields = document.querySelectorAll(".board-field");
+  fields.forEach((field) => {
+    field.addEventListener("click", () => {
+      const fieldIndex = field.getAttribute("data-index");
+      gameBoard.setMarker(currentPlayer, fieldIndex);
+      changePlayer();
+    });
+  });
+})();
