@@ -39,6 +39,7 @@ const gameBoard = (() => {
 
 const gameFlow = (() => {
   let currentPlayer = "X";
+  let roundWon = false;
   const gameInfo = document.querySelector("#game-info");
   gameInfo.textContent = `It's player ${currentPlayer} turn.`;
 
@@ -48,7 +49,6 @@ const gameFlow = (() => {
   };
 
   const checkForWinner = () => {
-    let roundWon = false;
     const board = gameBoard.getBoard();
     const winConditions = [
       [0, 1, 2],
@@ -76,7 +76,7 @@ const gameFlow = (() => {
     }
 
     if (roundWon) {
-      gameInfo.textContent = `${currentPlayer} wins!`;
+      gameInfo.textContent = `Player ${currentPlayer} wins!`;
     } else if (!board.includes(undefined)) {
       gameInfo.textContent = "It`s a draw!";
     } else {
@@ -84,12 +84,27 @@ const gameFlow = (() => {
     }
   };
 
+  // draw marks on the board
   const fields = document.querySelectorAll(".board-field");
   fields.forEach((field) => {
     field.addEventListener("click", () => {
       const fieldIndex = field.getAttribute("data-index");
-      gameBoard.setMarker(currentPlayer, fieldIndex);
+      if (!roundWon) {
+        gameBoard.setMarker(currentPlayer, fieldIndex);
+      }
       checkForWinner();
     });
   });
+
+  const resetGame = () => {
+    gameBoard.clearBoard();
+    roundWon = false;
+    currentPlayer = "X";
+    gameInfo.textContent = `It's player ${currentPlayer} turn.`;
+  };
+
+  return { resetGame };
 })();
+
+const ResetButton = document.querySelector("#reset-game");
+ResetButton.addEventListener("click", gameFlow.resetGame);
