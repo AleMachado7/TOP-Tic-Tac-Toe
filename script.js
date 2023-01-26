@@ -89,10 +89,10 @@ const gameFlow = (() => {
   fields.forEach((field) => {
     field.addEventListener("click", () => {
       const fieldIndex = field.getAttribute("data-index");
-      if (!roundWon) {
+      if (!roundWon && field.textContent === "") {
         gameBoard.setMarker(currentPlayer, fieldIndex);
+        checkForWinner();
       }
-      checkForWinner();
     });
   });
 
